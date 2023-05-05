@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Jays Cool Page</title>
+	
+    <link rel="stylesheet" href="styles/style.css">
+	<link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+  <header>
+    <img id=myImage src="images/dance.gif" alt="dancing!" width="200" height="200">
+  	<img src="images/Welcome1.gif" alt="Welcome to my page!">
+    <img id=myImage2 src="images/dance.gif" alt="dancing!" width="200" height="200">
+  </header>
+    <ul>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a>My Creations</a>
+            <ul class="dropdown">
+                <li><a href="art.html">Art</a></li>
+                <li><a href="suggestions.html">Suggestions</a></li>
+            </ul>
+        </li>
+    </ul>
+  <main>
+    <h1>Welcome to the <img src="images/title.gif" alt="COOL ZONE"></h1>
+    <p>Hey there! I'm Jay Cook and this is my website for my final project! Feel free to stay for a while and hang out!</p>
+      <p>I have some links over there on the side to look at! Theres this home page, a page of my creations, and a place to submit ideas!</p>
+      
+<script>
+function dance(sw) {
+  var pic;
+  if (sw == 0) {
+    pic = "images/dance.gif"
+  } else {
+    pic = "images/stopdancing.png"
+  }
+  document.getElementById('myImage').src = pic;
+    document.getElementById('myImage2').src = pic;
+}
+</script>
+
+<p>
+<button type="button" onclick="dance(1)">STOP DANCING!!!!</button>
+<button type="button" onclick="dance(0)">You can dance again :)</button>
+
+</p>
+  </main>
+</body>
+</html>
