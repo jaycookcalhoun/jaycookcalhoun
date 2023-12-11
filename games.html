@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Jays Games</title>
+
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin-top: 20px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            font-size: 24px;
+            color: red;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        #resetButton {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #playButton {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="images/dance.gif" alt="dancing!" width="150" height="150">
+        <img src="images/gameslogo.gif" alt="The games page!">
+        <img src="images/dance.gif" alt="dancing!" width="150" height="150">
+    </header>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a>My Creations</a>
+            <ul class="dropdown">
+                <li><a href="art.html">Art</a></li>
+                <li><a class="active" href="games.html">Games</a></li>
+                <li><a href="suggestions.html">Suggestions</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <p>Tic-tac-toe and some tunes!</p>
+    
+    <h1>Tic-Tac-Toe Game</h1>
+    <button id="playButton" onclick="playAudio()">Play music</button>
+    <div id="board"></div>
+    <button id="resetButton" onclick="resetGame()">Reset Game</button>
+    <audio id="audio" src="./music/music.mp3"></audio>
+
+    <script>
+        const board = document.getElementById('board');
+        const resetButton = document.getElementById('resetButton');
+        const playButton = document.getElementById('playButton');
+        const audio = document.getElementById('audio');
+        let currentPlayer = 'X';
+        let gameBoard = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+
+        // Create the Tic-Tac-Toe board
+        for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.dataset.index = i;
+            cell.addEventListener('click', () => handleCellClick(i));
+            board.appendChild(cell);
+        }
+
+        // Function to handle cell click
+        function handleCellClick(index) {
+            if (!gameActive || gameBoard[index] !== '') return;
+
+            gameBoard[index] = currentPlayer;
+            renderBoard();
+            checkWinner();
+
+            // Switch player
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+
+        // Function to render the board
+        function renderBoard() {
+            // Clear the board
+            board.innerHTML = '';
+
+            // Render the updated board
+            gameBoard.forEach((value, index) => {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.textContent = value;
+                cell.addEventListener('click', () => handleCellClick(index));
+                board.appendChild(cell);
+            });
+        }
+
+        // Function to check for a winner
+        function checkWinner() {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                [0, 4, 8], [2, 4, 6]             // Diagonals
+            ];
+
+            for (const pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+                    alert(`Player ${gameBoard[a]} wins!`);
+                    gameActive = false;
+                    return;
+                }
+            }
+
+            if (!gameBoard.includes('')) {
+                alert("It's a tie!");
+                gameActive = false;
+            }
+        }
+
+        // Function to reset the game
+        function resetGame() {
+            gameBoard = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+            currentPlayer = 'X';
+            renderBoard();
+        }
+
+        // Function to play the audio
+        function playAudio() {
+            audio.play();
+        }
+    </script>
+
+</body>
+</html>
